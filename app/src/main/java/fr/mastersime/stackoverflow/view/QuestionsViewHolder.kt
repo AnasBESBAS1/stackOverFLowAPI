@@ -5,6 +5,4 @@ import fr.mastersime.stackoverflow.databinding.ViewHolderQuestionsBinding
 
 class QuestionsViewHolder(val binding: ViewHolderQuestionsBinding) :
     RecyclerView.ViewHolder(binding.root) {
-
-
 }
