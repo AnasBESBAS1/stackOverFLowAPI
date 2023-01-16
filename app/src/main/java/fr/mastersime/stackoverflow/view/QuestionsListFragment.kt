@@ -42,7 +42,14 @@ class QuestionsListFragment : Fragment() {
             )
         )*/
         val questionsListViewModel: QuestionListViewModel by viewModels()
-
-
+        binding.swipeRefresh.setOnRefreshListener {
+            questionsListViewModel.updateList()
+        }
+        questionsListViewModel.questionList.observe(viewLifecycleOwner) { value ->
+            questionListAdapter.submitList(value)
+        }
+        questionsListViewModel.isUpdating.observe(viewLifecycleOwner) { value ->
+            binding.swipeRefresh.isRefreshing = value
+        }
     }
 }
