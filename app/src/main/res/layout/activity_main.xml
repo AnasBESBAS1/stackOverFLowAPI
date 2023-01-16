@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.MainActivity"
-    android:name="fr.mastersime.stackoverflow.view.QuestionsFragment"
+    android:name="fr.mastersime.stackoverflow.view.QuestionsListFragment"
     tools:layout="@layout/fragment_question_list"
     android:id="@+id/questionListFragment"
     >
