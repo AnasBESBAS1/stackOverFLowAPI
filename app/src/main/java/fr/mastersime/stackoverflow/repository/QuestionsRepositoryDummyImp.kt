@@ -13,7 +13,6 @@ class QuestionsRepositoryDummyImp @Inject constructor() : QuestionsRepository {
             Question("How can i use css in kotlin", (1..20).random()),
             Question("How can i use css in kotlin", (1..20).random()),
             Question("How can i use css in kotlin", (1..20).random())
-
         )
     }
 }

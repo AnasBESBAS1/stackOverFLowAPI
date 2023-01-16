@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import fr.mastersime.stackoverflow.data.Question
 import fr.mastersime.stackoverflow.databinding.FragmentQuestionListBinding
 import fr.mastersime.stackoverflow.viewModel.QuestionListViewModel
 
-
+@AndroidEntryPoint
 class QuestionsListFragment : Fragment() {
     private lateinit var binding: FragmentQuestionListBinding
 
@@ -33,14 +34,7 @@ class QuestionsListFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = questionListAdapter
         }
-
-        /*
         // Testing
-        questionListAdapter.submitList(
-            listOf(
-                Question("hellllllllo", 4),
-            )
-        )*/
         val questionsListViewModel: QuestionListViewModel by viewModels()
         binding.swipeRefresh.setOnRefreshListener {
             questionsListViewModel.updateList()
