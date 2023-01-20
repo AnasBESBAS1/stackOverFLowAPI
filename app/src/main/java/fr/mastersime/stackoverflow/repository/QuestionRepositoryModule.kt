@@ -10,6 +10,6 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent::class)
 abstract class QuestionRepositoryModule {
     @Binds
-    abstract fun bindQuestionRepository(questionsRepositoryImpl: QuestionsRepositoryDummyImp):
+    abstract fun bindQuestionRepository(questionsRepositoryImpl: QuestionRepositoryImpl):
             QuestionsRepository
 }

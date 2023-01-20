@@ -15,10 +15,10 @@ import javax.inject.Inject
 class QuestionListViewModel @Inject constructor(
     private val repository: QuestionsRepository
 ) : ViewModel() {
-    private val _isUpdating : MutableLiveData <Boolean> = MutableLiveData ( false )
+    private val _isUpdating: MutableLiveData<Boolean> = MutableLiveData(false)
     private val _questionsList: MutableLiveData<List<Question>> = MutableLiveData(emptyList())
     val questionList: LiveData<List<Question>> = _questionsList
-    val isUpdating : LiveData < Boolean > = _isUpdating
+    val isUpdating: LiveData<Boolean> = _isUpdating
 
     fun updateList() {
         viewModelScope.launch(Dispatchers.IO) {

@@ -24,3 +24,4 @@ class QuestionListAdapter : ListAdapter<Question, QuestionsViewHolder>(QuestionD
         holder.binding.answerCount.text = item.answerCount.toString()
     }
 }
+
