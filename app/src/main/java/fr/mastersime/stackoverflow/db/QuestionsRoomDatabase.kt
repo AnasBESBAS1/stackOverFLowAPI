@@ -1,6 +1,7 @@
 package fr.mastersime.stackoverflow.db
 
 import androidx.room.Database
+import androidx.room.RoomDatabase
 import fr.mastersime.stackoverflow.data.Question
 
 @Database(
@@ -8,6 +9,6 @@ import fr.mastersime.stackoverflow.data.Question
     version = 1,
     exportSchema = false
 )
-abstract class QuestionsRoomDatabase {
+abstract class QuestionsRoomDatabase :RoomDatabase() {
     abstract fun questionDao(): QuestionDAO
 }
