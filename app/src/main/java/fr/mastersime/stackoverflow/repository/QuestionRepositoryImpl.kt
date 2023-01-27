@@ -1,4 +1,5 @@
 package fr.mastersime.stackoverflow.repository
+
 import android.util.Log
 import fr.mastersime.stackoverflow.data.Question
 import fr.mastersime.stackoverflow.webService.StackOverFlowWebService
@@ -12,7 +13,13 @@ class QuestionRepositoryImpl @Inject constructor(
 ) : QuestionsRepository {
 
     override suspend fun getQuestionsList(): List<Question> {
-        stackOverFlowWebService
+
+        return stackOverFlowWebService
+            .getQuestionsList()
+        /*
+        val list = stackOverFlowWebService.getQuestionsList()
+        Log.d("webService","list : $list")
+       stackOverFlowWebService
             .getQuestionsList()
             .enqueue(
                 object : Callback<String> {
@@ -25,8 +32,6 @@ class QuestionRepositoryImpl @Inject constructor(
                     }
                 }
             )
-
-
-        return emptyList()
+        return emptyList()*/
     }
 }
