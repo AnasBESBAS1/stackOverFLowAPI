@@ -2,18 +2,27 @@ package fr.mastersime.stackoverflow.repository
 
 import android.util.Log
 import fr.mastersime.stackoverflow.data.Question
+import fr.mastersime.stackoverflow.db.QuestionDAO
 import fr.mastersime.stackoverflow.webService.StackOverFlowWebService
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class QuestionRepositoryImpl @Inject constructor(
-    private val stackOverFlowWebService: StackOverFlowWebService
+    private val stackOverFlowWebService: StackOverFlowWebService,
+    private val questionDAO: QuestionDAO
 ) : QuestionsRepository {
 
-    override suspend fun getQuestionsList(): List<Question> {
+    override val questionListFlow: Flow<List<Question>> = questionDAO.getQuestionsListFlow()
+    override suspend fun updateQuestionList() {
+        val list = stackOverFlowWebService
+            .getQuestionsList()
+        questionDAO.insertAll(list)
 
+    }
+    /*{
         return stackOverFlowWebService
             .getQuestionsList()
         /*
@@ -33,5 +42,5 @@ class QuestionRepositoryImpl @Inject constructor(
                 }
             )
         return emptyList()*/
-    }
+    }*/
 }

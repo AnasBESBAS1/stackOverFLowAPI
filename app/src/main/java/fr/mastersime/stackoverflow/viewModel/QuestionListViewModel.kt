@@ -1,10 +1,7 @@
 package fr.mastersime.stackoverflow.viewModel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.mastersime.stackoverflow.data.Question
 import fr.mastersime.stackoverflow.repository.QuestionsRepository
@@ -18,16 +15,17 @@ class QuestionListViewModel @Inject constructor(
 ) : ViewModel() {
     private val _isUpdating: MutableLiveData<Boolean> = MutableLiveData(false)
     private val _questionsList: MutableLiveData<List<Question>> = MutableLiveData(emptyList())
-    val questionList: LiveData<List<Question>> = _questionsList
+    val questionList: LiveData<List<Question>> = repository.questionListFlow.asLiveData()
     val isUpdating: LiveData<Boolean> = _isUpdating
 
     fun updateList() {
-        Log.d("here updateList","dsc")
+        Log.d("here updateList", "dsc")
 
 
         viewModelScope.launch(Dispatchers.IO) {
             _isUpdating.postValue(true)
-            _questionsList.postValue(repository.getQuestionsList())
+            // _questionsList.postValue(repository.getQuestionsList())
+            repository.updateQuestionList()
             _isUpdating.postValue(false)
         }
     }
