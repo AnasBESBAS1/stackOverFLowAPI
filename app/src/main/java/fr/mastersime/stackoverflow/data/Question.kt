@@ -7,4 +7,3 @@ import androidx.room.PrimaryKey
 data class Question(@PrimaryKey val title: String, val answerCount: Int)
 
 
-}

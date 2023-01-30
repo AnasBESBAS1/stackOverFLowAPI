@@ -10,7 +10,6 @@ class QuestionMoshiAdapter {
 
     @FromJson
     fun fromJson(listQuestionsJson: ListQuestionsJson): List<Question> {
-
         return listQuestionsJson.items.map { questionJson ->
             Question(questionJson.title, questionJson.answer_count)
         }

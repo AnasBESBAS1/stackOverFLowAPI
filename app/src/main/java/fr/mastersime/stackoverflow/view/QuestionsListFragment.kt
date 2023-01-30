@@ -1,14 +1,16 @@
 package fr.mastersime.stackoverflow.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import fr.mastersime.stackoverflow.data.Question
+import fr.mastersime.stackoverflow.data.RequestState
 import fr.mastersime.stackoverflow.databinding.FragmentQuestionListBinding
 import fr.mastersime.stackoverflow.viewModel.QuestionListViewModel
 
@@ -20,7 +22,7 @@ class QuestionsListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentQuestionListBinding.inflate(inflater)
         return binding.root
     }
@@ -42,8 +44,23 @@ class QuestionsListFragment : Fragment() {
         questionsListViewModel.questionList.observe(viewLifecycleOwner) { value ->
             questionListAdapter.submitList(value)
         }
-        questionsListViewModel.isUpdating.observe(viewLifecycleOwner) { value ->
+
+      /*  questionsListViewModel.isUpdating.observe(viewLifecycleOwner) { value ->
             binding.swipeRefresh.isRefreshing = value
+        }*/
+
+        questionsListViewModel.requestState.observe(viewLifecycleOwner){ value ->
+           if (value == RequestState("ok", true)){
+               binding.swipeRefresh.isRefreshing = true
+               questionsListViewModel.updateList()
+               binding.swipeRefresh.isRefreshing = false
+           } else if (value == RequestState("IOException", false)){
+               binding.swipeRefresh.isRefreshing = false
+               val text = "Network Error!"
+               val duration = Toast.LENGTH_SHORT
+               val toast = Toast.makeText(context, text, duration)
+               toast.show()
+           }
         }
     }
 }

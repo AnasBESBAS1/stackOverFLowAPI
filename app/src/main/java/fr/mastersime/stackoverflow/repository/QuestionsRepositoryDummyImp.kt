@@ -1,12 +1,16 @@
 package fr.mastersime.stackoverflow.repository
 
+import androidx.lifecycle.MutableLiveData
 import fr.mastersime.stackoverflow.data.Question
+import fr.mastersime.stackoverflow.data.RequestState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
-class QuestionsRepositoryDummyImp @Inject constructor(override val questionListFlow: Flow<List<Question>>) :
+class QuestionsRepositoryDummyImp @Inject constructor(override val questionListFlow: Flow<List<Question>>,
+                                                      override val requestStateFlow: MutableStateFlow<RequestState>
+) :
     QuestionsRepository {
 
     private val _questionListFlow: MutableStateFlow<List<Question>> =
