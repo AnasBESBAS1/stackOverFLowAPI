@@ -16,11 +16,11 @@ class QuestionRepositoryImpl @Inject constructor(
 ) : QuestionsRepository {
 
     override val questionListFlow: Flow<List<Question>> = questionDAO.getQuestionsListFlow()
+
     override suspend fun updateQuestionList() {
         val list = stackOverFlowWebService
             .getQuestionsList()
         questionDAO.insertAll(list)
-
     }
     /*{
         return stackOverFlowWebService

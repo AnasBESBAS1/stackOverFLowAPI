@@ -20,8 +20,6 @@ class QuestionListViewModel @Inject constructor(
 
     fun updateList() {
         Log.d("here updateList", "dsc")
-
-
         viewModelScope.launch(Dispatchers.IO) {
             _isUpdating.postValue(true)
             // _questionsList.postValue(repository.getQuestionsList())
