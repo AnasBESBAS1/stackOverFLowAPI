@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/questionsListFragment">
+
+
+    <fragment
+        android:id="@+id/questionsListFragment"
+        android:name="fr.mastersime.stackoverflow.view.QuestionsListFragment"
+        android:label="QuestionsListFragment"
+        tools:layout="@layout/fragment_question_list"
+        >
+        <action
+            android:id="@+id/action_questionsListFragment_to_questionContent"
+            app:destination="@id/questionContent" />
+    </fragment>
+    <fragment
+        android:id="@+id/questionContent"
+        android:name="fr.mastersime.stackoverflow.view.QuestionContent"
+        android:label="QuestionContent"
+        tools:layout="@layout/question_fragment"
+        />
+</navigation>

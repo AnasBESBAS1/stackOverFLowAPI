@@ -60,6 +60,12 @@ class QuestionsListFragment : Fragment() {
                 val duration = Toast.LENGTH_SHORT
                 val toast = Toast.makeText(context, text, duration)
                 toast.show()
+            } else {
+                binding.swipeRefresh.isRefreshing = false
+                val text = "Request Error!"
+                val duration = Toast.LENGTH_SHORT
+                val toast = Toast.makeText(context, text, duration)
+                toast.show()
             }
         }
     }

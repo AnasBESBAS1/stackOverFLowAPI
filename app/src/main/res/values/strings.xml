@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">StackOverFlow</string>
+    <string name="show_answer">SHOW ANSWER</string>
 </resources>
