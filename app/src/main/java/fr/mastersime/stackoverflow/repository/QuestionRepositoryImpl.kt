@@ -40,6 +40,7 @@ class QuestionRepositoryImpl @Inject constructor(
                 .getQuestionsList()
             questionDAO.insertAll(list)
         } catch (ex: IOException) {
+
             requestStateFlow.emit(
                 RequestState("IOException", false)
             )

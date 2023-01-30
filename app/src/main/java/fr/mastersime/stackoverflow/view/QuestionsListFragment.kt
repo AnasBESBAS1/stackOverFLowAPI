@@ -45,22 +45,28 @@ class QuestionsListFragment : Fragment() {
             questionListAdapter.submitList(value)
         }
 
-      /*  questionsListViewModel.isUpdating.observe(viewLifecycleOwner) { value ->
-            binding.swipeRefresh.isRefreshing = value
-        }*/
+        /*  questionsListViewModel.isUpdating.observe(viewLifecycleOwner) { value ->
+              binding.swipeRefresh.isRefreshing = value
+          }*/
 
-        questionsListViewModel.requestState.observe(viewLifecycleOwner){ value ->
-           if (value == RequestState("ok", true)){
-               binding.swipeRefresh.isRefreshing = true
-               questionsListViewModel.updateList()
-               binding.swipeRefresh.isRefreshing = false
-           } else if (value == RequestState("IOException", false)){
-               binding.swipeRefresh.isRefreshing = false
-               val text = "Network Error!"
-               val duration = Toast.LENGTH_SHORT
-               val toast = Toast.makeText(context, text, duration)
-               toast.show()
-           }
+        questionsListViewModel.requestState.observe(viewLifecycleOwner) { value ->
+            if (value == RequestState("ok", true)) {
+                binding.swipeRefresh.isRefreshing = true
+                questionsListViewModel.updateList()
+                binding.swipeRefresh.isRefreshing = false
+            } else if (value == RequestState("IOException", false)) {
+                binding.swipeRefresh.isRefreshing = false
+                val text = "Network Error!"
+                val duration = Toast.LENGTH_SHORT
+                val toast = Toast.makeText(context, text, duration)
+                toast.show()
+            } else {
+                binding.swipeRefresh.isRefreshing = false
+                val text = "Request Error!"
+                val duration = Toast.LENGTH_SHORT
+                val toast = Toast.makeText(context, text, duration)
+                toast.show()
+            }
         }
     }
 }
