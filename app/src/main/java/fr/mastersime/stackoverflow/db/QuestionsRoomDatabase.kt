@@ -9,6 +9,6 @@ import fr.mastersime.stackoverflow.data.Question
     version = 1,
     exportSchema = false
 )
-abstract class QuestionsRoomDatabase :RoomDatabase() {
+abstract class QuestionsRoomDatabase : RoomDatabase() {
     abstract fun questionDao(): QuestionDAO
 }

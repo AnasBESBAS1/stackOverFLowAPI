@@ -13,7 +13,7 @@ interface QuestionDAO { // Data Access Object interface
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(list: List<Question>)
 
-    @Query("SELECT * FROM question_table")
+    @Query("SELECT * FROM question_table ORDER BY last_activity_date DESC")
     fun getQuestionsListFlow(): kotlinx.coroutines.flow.Flow<List<Question>>
 
 }
