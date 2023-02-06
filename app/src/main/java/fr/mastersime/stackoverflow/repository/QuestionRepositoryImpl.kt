@@ -3,6 +3,8 @@ package fr.mastersime.stackoverflow.repository
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
+import dagger.assisted.Assisted
+import dagger.hilt.android.qualifiers.ApplicationContext
 import fr.mastersime.stackoverflow.data.Question
 import fr.mastersime.stackoverflow.data.RequestState
 import fr.mastersime.stackoverflow.db.QuestionDAO
@@ -25,7 +27,6 @@ class QuestionRepositoryImpl @Inject constructor(
 
     override var requestStateFlow: MutableStateFlow<RequestState> =
         MutableStateFlow(RequestState("ok", true))
-
 
     override suspend fun updateQuestionList() {
         try { // request valid
