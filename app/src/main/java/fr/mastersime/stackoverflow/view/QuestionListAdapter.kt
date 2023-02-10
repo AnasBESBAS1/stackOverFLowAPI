@@ -6,6 +6,7 @@ package fr.mastersime.stackoverflow.view
 import android.Manifest
 import android.content.pm.PackageManager
 import android.telephony.SmsManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
@@ -29,10 +30,14 @@ class QuestionListAdapter ( val sendMessage : () -> Unit) : ListAdapter<Question
     override fun onBindViewHolder(holder: QuestionsViewHolder, position: Int) {
         val context = holder.binding.root.context
         val item = getItem(position)
+
         holder.binding.title.text = item.title
         holder.binding.answerCount.text = item.answerCount.toString()
         holder.binding.sendBtn.setOnClickListener {
             sendMessage()
+        }
+        holder.itemView.setOnClickListener{
+            Log.d("clicked","yes")
         }
 
     }

@@ -2,9 +2,12 @@ package fr.mastersime.stackoverflow.view
 
 import android.Manifest
 import android.Manifest.permission.SEND_SMS
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.telephony.SmsManager
 import android.util.Log
 import android.view.LayoutInflater
@@ -40,29 +43,50 @@ class QuestionsListFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val questionListAdapter = QuestionListAdapter(){
+        val questionsListViewModel: QuestionListViewModel by viewModels()
+
+        val requestPermissionLauncher =
+            registerForActivityResult(
+                ActivityResultContracts.RequestPermission()
+            ) { isGranted: Boolean ->
+                if (isGranted) {
+                    context?.let { questionsListViewModel.sendSMS(it) }
+                } else {
+                    Snackbar.make(
+                        binding.recyclerView,
+                        " Permission needed ",
+                        Snackbar.LENGTH_LONG
+                    ).setAction(" Go to settings ") {
+                        startActivity(
+                            Intent(
+                                Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                Uri.parse(" package:" + requireActivity().packageName)
+                            )
+                        )
+                    }.show()
+                }
+            }
+        val questionListAdapter = QuestionListAdapter() {
             Log.d("param", "sent")
             when {
                 ContextCompat.checkSelfPermission(
                     requireContext(),
-                    Manifest.permission.SEND_SMS
+                    SEND_SMS
                 ) == PackageManager.PERMISSION_GRANTED
                 -> {
-                    (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        context?.getSystemService(SmsManager::class.java)
-                    } else {
-                        SmsManager.getDefault()
-                    })?.sendTextMessage(" 0648841933 ", "0648841933", "message", null, null)
+                    context?.let { questionsListViewModel.sendSMS(it) }
                 }
-               /* ActivityCompat.shouldShowRequestPermissionRationale() -> {
+                shouldShowRequestPermissionRationale(SEND_SMS) -> {
                     Snackbar.make(
                         binding.recyclerView,
                         "Permission is needed",
                         Snackbar.LENGTH_LONG
-                    )
-                }*/
+                    ).setAction("Allow") {
+                        requestPermissionLauncher.launch(SEND_SMS)
+                    }.show()
+                }
                 else -> {
-
+                    requestPermissionLauncher.launch(SEND_SMS)
                 }
             }
         }
@@ -73,7 +97,6 @@ class QuestionsListFragment : Fragment() {
             adapter = questionListAdapter
         }
         // Testing
-        val questionsListViewModel: QuestionListViewModel by viewModels()
         binding.swipeRefresh.setOnRefreshListener {
             questionsListViewModel.updateList()
         }
@@ -106,15 +129,5 @@ class QuestionsListFragment : Fragment() {
         }
 
 
-        val requestPermissionLauncher =
-            registerForActivityResult(
-                ActivityResultContracts.RequestPermission()
-            ) { isGranted: Boolean ->
-                if (isGranted) {
-
-                } else {
-
-                }
-            }
     }
 }

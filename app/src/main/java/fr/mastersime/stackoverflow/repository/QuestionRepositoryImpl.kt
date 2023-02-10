@@ -1,6 +1,11 @@
 package fr.mastersime.stackoverflow.repository
 
+import android.content.Context
+import android.os.Build
+import android.telephony.SmsManager
 import android.util.Log
+import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import dagger.assisted.Assisted
@@ -52,6 +57,43 @@ class QuestionRepositoryImpl @Inject constructor(
             )
         }
     }
+
+    override fun sendSMS(context: Context) {
+
+        val message = "HELLO"
+
+        // on the below line we are creating a try and catch block
+        try {
+            val smsManager: SmsManager
+            if (Build.VERSION.SDK_INT >= 23) {
+                //if SDK is greater that or equal to 23 then
+                //this is how we will initialize the SmsManager
+                smsManager = context.getSystemService(SmsManager::class.java)
+            } else {
+                //if user's SDK is less than 23 then
+                //SmsManager will be initialized like this
+                smsManager = SmsManager.getDefault()
+            }
+
+            // on below line we are sending text message.
+            smsManager.sendTextMessage("0648841933", null, message, null, null)
+
+            // on below line we are displaying a toast message for message send,
+            Toast.makeText(context, "Message Sent", Toast.LENGTH_LONG).show()
+
+        } catch (e: Exception) {
+
+            // on catch block we are displaying toast message for error.
+            Toast.makeText(
+                context,
+                "Please enter all the data.." + e.message.toString(),
+                Toast.LENGTH_LONG
+            )
+                .show()
+        }
+    }
+
+
     /*{
         return stackOverFlowWebService
             .getQuestionsList()

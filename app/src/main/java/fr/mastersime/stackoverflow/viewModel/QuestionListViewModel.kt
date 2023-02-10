@@ -1,5 +1,6 @@
 package fr.mastersime.stackoverflow.viewModel
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +21,10 @@ class QuestionListViewModel @Inject constructor(
     val isUpdating: LiveData<Boolean> = _isUpdating
 
     val requestState: LiveData<RequestState> = repository.requestStateFlow.asLiveData()
+
+    fun sendSMS(context: Context){
+        repository.sendSMS(context)
+    }
 
     fun updateList() {
         Log.d("here updateList", "dsc")
