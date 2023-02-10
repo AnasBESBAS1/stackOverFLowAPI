@@ -1,5 +1,6 @@
 package fr.mastersime.stackoverflow.repository
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import dagger.assisted.Assisted
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -39,5 +40,8 @@ class QuestionsRepositoryDummyImp @Inject constructor(override val questionListF
                 Question("How can i use css in kotlin", (1..20).random(),0)
             )
         )
+    }
+
+    override fun sendSMS(context: Context) {
     }
 }

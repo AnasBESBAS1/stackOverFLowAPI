@@ -60,7 +60,7 @@ class QuestionsListFragment : Fragment() {
                         startActivity(
                             Intent(
                                 Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                Uri.parse(" package:" + requireActivity().packageName)
+                                Uri.parse("package:" + requireActivity().packageName)
                             )
                         )
                     }.show()
